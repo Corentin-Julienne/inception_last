@@ -23,14 +23,16 @@ Y
 Y
 EOF
 
+echo "CREATE DATABASE IF NOT EXISTS $MARIADB_DATABASE; CREATE USER IF NOT EXISTS '$MARIADB_USER'@'%' IDENTIFIED BY $MARIADB_PASSWORD; GRANT ALL PRIVILEGES ON $MARIADB_DATABASE.* TO '$MARIADB_USER'@'%'; FLUSH PRIVILEGES;" | mysql -uroot
+echo "'root'@'localhost' IDENTIFIED BY '$MARIADB_USER_PASSWORD';"
 #mysql -uroot launch mysql command line client, using echo and passing it to user with a pipe 
-echo "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$MARIADB_ROOT_PASSWORD'; FLUSH PRIVILEGES;" | mysql -uroot
+#echo "GRANT ALL ON *.* TO 'root'@'%' IDENTIFIED BY '$MARIADB_ROOT_PASSWORD'; FLUSH PRIVILEGES;" | mysql -uroot
 
 #Create database and user in the database for wordpress
-echo "CREATE DATABASE IF NOT EXISTS $MARIADB_DATABASE; GRANT ALL ON $MARIADB_DATABASE.* TO '$MARIADB_USER'@'%' IDENTIFIED BY '$MARIADB_PASSWORD'; FLUSH PRIVILEGES;" | mysql -uroot
+#echo "CREATE DATABASE IF NOT EXISTS $MARIADB_DATABASE; GRANT ALL ON $MARIADB_DATABASE.* TO '$MARIADB_USER'@'%' IDENTIFIED BY '$MARIADB_PASSWORD'; FLUSH PRIVILEGES;" | mysql -uroot
 
 # Import sql database from a previous manual wordpress setup to avoid having to do it every time
-mysql -uroot -p$MARIADB_ROOT_PASSWORD $MARIADB_DATABASE < /usr/local/bin/wordpress.sql
+#mysql -uroot -p$MARIADB_ROOT_PASSWORD $MARIADB_DATABASE < /usr/local/bin/wordpress.sql
 
 fi
 

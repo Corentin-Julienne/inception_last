@@ -17,6 +17,10 @@ else
 	sed -i "s/localhost/$MARIADB_HOSTNAME/g" wp-config-sample.php
 	sed -i "s/database_name_here/$MARIADB_DATABASE/g" wp-config-sample.php
 	mv wp-config-sample.php wp-config.php
+
+	# create wordpress admin user and regular non admin user
+	wp core install --allow-root --url=$DOMAIN_NAME --title=$WP_TITLE --admin_user=$MARIADB_USER --admin_password=$MARIADB_PASSWORD --admin_email=$WP_ADMIN_EMAIL
+	wp user create --allow-root $WP_SECOND_USER $WP_SECOND_EMAIL --user_pass=$WP_SECOND_PASSWORD;
 fi
 
 exec "$@"
